@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06.scrollTrigger_ranking</title>
+    <link rel="stylesheet" href=https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.css />
+    <style>
+        body {
+            height: 100vh;
+        }
+
+        section {
+            height: 100vh;
+            background: lightblue;
+            position: relative;
+        }
+
+        .bar {
+            display: none;
+            width: 0;
+            height: 20px;
+            color: black;
+            background: orange;
+            text-align: right;
+            border-radius: 0.3rem;
+            padding-right: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="section01"></section>
+    <section id="section02">
+        <div class="container">
+            <table class="table table-dark ranking">
+                <tr>
+                    <td width="1">HTML</td>
+                    <td>
+                        <div class="bar"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CSS</td>
+                    <td>
+                        <div class="bar"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>JavaScript</td>
+                    <td>
+                        <div class="bar"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PHP</td>
+                    <td>
+                        <div class="bar"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>TypeScript</td>
+                    <td>
+                        <div class="bar"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <section id="section03"></section>
+    <section id="section04"></section>
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js></script>
+    <!-- GSAP主程式 -->
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js></script>
+    <!-- 先有GSAP主程式，才能引入GSAP的plugins -->
+    <script src="./plugins/ScrollTrigger.js"></script>
+    <script>
+        // 註冊套件
+        gsap.registerPlugin(ScrollTrigger) //S是大寫
+
+        // 1. 資料
+        const language = {
+            html: 60,
+            css: 70,
+            js: 80,
+            php: 55,
+            ts: 40
+        }
+
+        // 2.動畫被scrollTrigger觸發
+        const tween = gsap.to('.bar', {
+            scrollTrigger: {
+                trigger: '.ranking',
+                start: 'top center',
+                end: 'bottom center',
+                toggleActions: 'play none none none',
+                markers: true
+            },
+            width: function (index, target, targets) {
+                switch (index) {
+                    case 0:
+                        $(target).append(language.html + '%')
+                        return language.html + '%';
+                        break
+                    case 1:
+                        $(target).append(language.css + '%')
+                        return language.css + '%';
+                        break
+                    case 2:
+                        $(target).append(language.js + '%')
+                        return language.js + '%';
+                        break
+                    case 3:
+                        $(target).append(language.php + '%')
+                        return language.php + '%';
+                        break
+                    case 4:
+                        $(target).append(language.ts + '%')
+                        return language.ts + '%';
+                        break
+                }
+            },
+            display: 'block',
+            duration: 1,
+            stagger: 0.5
+        })
+    </script>
+</body>
+
+</html>

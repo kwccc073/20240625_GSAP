@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04.scrollTrigger_parallax_background</title>
+    <link rel="stylesheet" href=https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.css />
+    <style>
+        section {
+            height: 50vh;
+            font-size: 3rem;
+            color: white;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="section01">SECTION01</section>
+    <section id="section02">SECTION02</section>
+    <section id="section03">SECTION03</section>
+    <section id="section04">SECTION04</section>
+    <section id="section05">SECTION05</section>
+    <section id="section06">SECTION06</section>
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js></script>
+    <!-- GSAP主程式 -->
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js></script>
+    <!-- 先有GSAP主程式，才能引入GSAP的plugins -->
+    <script src="./plugins/ScrollTrigger.js"></script>
+
+    <script>
+        // 註冊套件
+        gsap.registerPlugin(ScrollTrigger) //注意S大寫
+
+        const sections = gsap.utils.toArray('section')
+
+        $(sections).each(function (index, section) {
+            $(section).css({
+                backgroundImage: `url(https://picsum.photos/1920/1080/?random=${index + 1})`
+            })
+
+            gsap.to(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 50%',
+                    end: 'bottom 0%',
+                    scrub: true,
+                    markers: true
+                },
+                backgroundPosition: '50% -50%',
+                ease: 'linear'
+            })
+        })
+
+    </script>
+
+</body>
+
+</html>
